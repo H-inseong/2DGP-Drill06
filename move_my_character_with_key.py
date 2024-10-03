@@ -1,9 +1,12 @@
+import random
+
 from pico2d import *
 
 TUK_WIDTH, TUK_HEIGHT = 1280, 1024
 open_canvas(TUK_WIDTH, TUK_HEIGHT)
 tuk_ground = load_image('TUK_GROUND.png')
 character = load_image('Sprite_Sheet.png')
+hand = load_image('hand_arrow.png')
 
 
 def handle_events():
@@ -51,6 +54,9 @@ frame_width = 80
 frame_height = 80
 frame_y = 80
 
+handX = x
+handY = y
+
 while running:
     clear_canvas()
     tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
@@ -66,6 +72,11 @@ while running:
         character.clip_draw(frame * frame_width + frame_width * 6, frame_y * 6 + 64, frame_width, frame_height, x, y)
     elif diry == 1: #up
         character.clip_draw(frame * frame_width, frame_y * 6 + 64, frame_width, frame_height, x, y)
+
+    if handX == x and handY == y:
+        handX = random.randint(25, TUK_WIDTH- 25)
+        handY = random.randint(26, TUK_HEIGHT - 26)
+    hand.draw(handX, handY)
 
     update_canvas()
     handle_events()
