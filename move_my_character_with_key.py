@@ -8,40 +8,10 @@ tuk_ground = load_image('TUK_GROUND.png')
 character = load_image('Sprite_Sheet.png')
 hand = load_image('hand_arrow.png')
 
-
 def handle_events():
     global running
     global dirx
     global diry
-
-    events = get_events()
-    for event in events:
-        if event.type == SDL_QUIT:
-            running = False
-
-        elif event.type == SDL_KEYDOWN:
-            if event.key == SDLK_RIGHT:
-                dirx += 1
-            elif event.key == SDLK_LEFT:
-                dirx -= 1
-            elif event.key == SDLK_UP:
-                diry += 1
-            elif event.key == SDLK_DOWN:
-                diry -= 1
-            elif event.key == SDLK_ESCAPE:
-                running = False
-
-        elif event.type == SDL_KEYUP:
-            if event.key == SDLK_RIGHT:
-                dirx -= 1
-            elif event.key == SDLK_LEFT:
-                dirx += 1
-            elif event.key == SDLK_UP:
-                diry -= 1
-            elif event.key == SDLK_DOWN:
-                diry += 1
-
-
 
 running = True
 hide_cursor()
@@ -121,3 +91,4 @@ while running:
     delay(0.1)
 
 close_canvas()
+#GG
