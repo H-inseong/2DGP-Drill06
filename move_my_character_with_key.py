@@ -81,6 +81,20 @@ while running:
     update_canvas()
     handle_events()
 
+    if handX > x:
+        dirx = 1
+    elif handX < x:
+        dirx = -1
+    else:
+        dirx = 0
+
+    if handY > y:
+        diry = 1
+    elif handY < y:
+        diry = -1
+    else:
+        diry = 0
+
     if dirx == 0 and diry == 0: #idle
         frame = (frame + 1) % 7
     elif dirx == -1: # left
