@@ -56,6 +56,9 @@ frame_y = 80
 
 handX = x
 handY = y
+handWidth = 50
+handHeight = 52
+move_speed = 10
 
 while running:
     clear_canvas()
@@ -73,24 +76,24 @@ while running:
     elif diry == 1: #up
         character.clip_draw(frame * frame_width, frame_y * 6 + 64, frame_width, frame_height, x, y)
 
-    if handX == x and handY == y:
-        handX = random.randint(25, TUK_WIDTH- 25)
-        handY = random.randint(26, TUK_HEIGHT - 26)
+    if handX // move_speed == x // move_speed and handY // move_speed == y // move_speed:
+        handX = random.randint(handWidth, TUK_WIDTH - handWidth)
+        handY = random.randint(handHeight, TUK_HEIGHT - handHeight)
     hand.draw(handX, handY)
 
     update_canvas()
     handle_events()
 
-    if handX > x:
+    if handX // move_speed > x // move_speed:
         dirx = 1
-    elif handX < x:
+    elif handX // move_speed < x // move_speed:
         dirx = -1
     else:
         dirx = 0
 
-    if handY > y:
+    if handY // move_speed > y // move_speed:
         diry = 1
-    elif handY < y:
+    elif handY // move_speed < y // move_speed:
         diry = -1
     else:
         diry = 0
@@ -108,11 +111,10 @@ while running:
 
 
     #경계처리
-    if (x + dirx * 5 >= frame_width // 2) and (x + dirx * 5 <= TUK_WIDTH - frame_width // 2):
-        x += dirx * 5
-    if (y + diry * 5 >= frame_height // 2) and (y + diry * 5 <= TUK_HEIGHT - frame_height // 2):
-        y += diry * 5
+    if (x + dirx * move_speed >= frame_width // 5) and (x + dirx * move_speed <= TUK_WIDTH - frame_width // 2):
+        x += dirx * move_speed
+    if (y + diry * move_speed >= frame_height // 2) and (y + diry * move_speed <= TUK_HEIGHT - frame_height // 2):
+        y += diry * move_speed
     delay(0.05)
 
 close_canvas()
-#GG
