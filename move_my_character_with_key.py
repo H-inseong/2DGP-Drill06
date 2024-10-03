@@ -58,15 +58,15 @@ handX = x
 handY = y
 handWidth = 50
 handHeight = 52
-move_speed = 10
-
+move_speed = 5
+t = 0
+count = 0
 while running:
     clear_canvas()
     tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
 
     if dirx == 0 and diry == 0: #idle
        character.clip_draw(frame * frame_width, frame_y * 3 + 64, frame_width, frame_height, x, y)
-
     elif dirx == -1: # left
         character.clip_composite_draw(frame * frame_width, frame_y * 11 + 64, frame_width, frame_height, 0, 'h', x, y, 80, 80)
     elif dirx == 1: #right
@@ -76,9 +76,12 @@ while running:
     elif diry == 1: #up
         character.clip_draw(frame * frame_width, frame_y * 6 + 64, frame_width, frame_height, x, y)
 
+
     if handX // move_speed == x // move_speed and handY // move_speed == y // move_speed:
         handX = random.randint(handWidth, TUK_WIDTH - handWidth)
         handY = random.randint(handHeight, TUK_HEIGHT - handHeight)
+        t = 0
+        count = 0
     hand.draw(handX, handY)
 
     update_canvas()
@@ -98,6 +101,12 @@ while running:
     else:
         diry = 0
 
+    count += move_speed
+    t = count / 100
+
+    x = (1 - t) * x + t * handX
+    y = (1 - t) * y + t * handY
+
     if dirx == 0 and diry == 0: #idle
         frame = (frame + 1) % 7
     elif dirx == -1: # left
@@ -109,12 +118,6 @@ while running:
     elif diry == 1: #up
         frame = (frame + 1) % 6
 
-
-    #경계처리
-    if (x + dirx * move_speed >= frame_width // 5) and (x + dirx * move_speed <= TUK_WIDTH - frame_width // 2):
-        x += dirx * move_speed
-    if (y + diry * move_speed >= frame_height // 2) and (y + diry * move_speed <= TUK_HEIGHT - frame_height // 2):
-        y += diry * move_speed
-    delay(0.05)
+    delay(0.1)
 
 close_canvas()
